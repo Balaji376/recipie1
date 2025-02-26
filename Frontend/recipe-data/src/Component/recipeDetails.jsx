@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import '../style/RecipeView.css';
+import '../style/recipeView.css'
 
 export const RecipeView = () => {
   const { id } = useParams("6b65aa0940284e7d8ef9f583fff2225c");

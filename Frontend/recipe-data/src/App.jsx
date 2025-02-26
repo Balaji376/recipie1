@@ -4,9 +4,12 @@ import { Navbar } from './Navbar/navbar';
 import Login from './Authentication/Login';
 import { Signup } from './Authentication/Signup';
 import { Home } from './Component/Home';
-
-import { RecipeView } from './Component/RecipeDetails';
 import { AddToCart } from './Component/AddtoCart';
+import { RecipeView } from './Component/recipeDetails';
+
+
+
+
 
 
 function App() {

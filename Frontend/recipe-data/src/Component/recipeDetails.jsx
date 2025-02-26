@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import '../style/RecipeView.css';
 
 export const RecipeView = () => {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState(null);
+  const location = useLocation();
+  const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
   useEffect(() => {
-    async function fetchRecipe() {
-      try {
-        let res = await fetch(`https://dummyjson.com/recipes/${id}`);
-        let data = await res.json();
-        setRecipe(data);
-      } catch (error) {
-        console.log("Error fetching recipe details:", error);
+    if (!recipe) {
+      async function fetchRecipe() {
+        try {
+          let res = await fetch(`https://dummyjson.com/recipes/${id}`);
+          let data = await res.json();
+          setRecipe(data);
+        } catch (error) {
+          console.log("Error fetching recipe details:", error);
+        }
       }
+      fetchRecipe();
     }
-    fetchRecipe();
-  }, [id]);
+  }, [id, recipe]);
 
   if (!recipe) {
     return <p>Loading Recipe...</p>;

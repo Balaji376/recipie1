@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault()
 
   try {
-    const response = await axios.post('http://localhost:9000/auth/login',{
+    const response = await axios.post('https://recepie-server.onrender.com/auth/login',{
       email,
       password
     })

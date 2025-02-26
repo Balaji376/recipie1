@@ -8,7 +8,7 @@ export const AddToCart = () => {
   
   const [cart, setCart] = useState([]);
 
-  // Load or update cart
+  
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     

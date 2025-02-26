@@ -22,6 +22,10 @@ export const Home = () => {
   }
 
   useEffect(() => {
+    FetchData();
+  }, []);
+
+  useEffect(() => {
     if (search) {
       const filtered = recipe.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
@@ -32,18 +36,8 @@ export const Home = () => {
     }
   }, [search, recipe]);
 
-  useEffect(() => {
-    FetchData();
-  }, []);
-
-  const handleCardClick = (id) => {
-    navigate(`/recipe/${id}`);
-  };
-
-  const handleDelete = (id) => {
-    const updatedRecipes = recipe.filter((item) => item.id !== id);
-    setRecipe(updatedRecipes);
-    setFilteredRecipes(updatedRecipes);
+  const handleViewDetails = (item) => {
+    navigate(`/recipe-details/${item.id}`, { state: { recipe: item } });
   };
 
   const handleAddToCart = (item) => {
@@ -51,50 +45,47 @@ export const Home = () => {
   };
 
   return (
-    <>
-      <div className='full_container'>
-        <input
-          placeholder='Search Product Here...'
-          type='text'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          required
-          className='search_recipes'
-        />
+    <div className='full_container'>
+      <input
+        placeholder='Search Recipe Here...'
+        type='text'
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        required
+        className='search_recipes'
+      />
 
-        <div className='container_recips'>
-          {filteredRecipes.length > 0 ? (
-            filteredRecipes.map((item) => (
-              <div
-                key={item.id}
-                className='recipe_card'
-                onClick={() => handleCardClick(item.id)}
-              >
-                <img src={item.image} alt='No image' className='recips_image' />
-                <p>Name: {item.name}</p>
-                <p>Type: {item.cuisine}</p>
-                <p>Price: {item.caloriesPerServing}</p>
-                <p>Rating: {item.rating}</p>
+      <div className='container_recips'>
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((item) => (
+            <div key={item.id} className='recipe_card'>
+              <img src={item.image} alt='No image' className='recips_image' />
+              <p>Name: {item.name}</p>
+              <p>Type: {item.cuisine}</p>
+              <p>Price: {item.caloriesPerServing}</p>
+              <p>Rating: {item.rating}</p>
+
+              <div className='card_buttons'>
                 <button
-                  onClick={(e) => { e.stopPropagation(); handleDelete(item.id); }}
-                  className='delete_button'
+                  onClick={() => handleViewDetails(item)}
+                  className='view_details_button'
                 >
-                  Delete
+                  View Details
                 </button>
+
                 <button
-                  onClick={(e) => { e.stopPropagation(); handleAddToCart(item); }}
+                  onClick={() => handleAddToCart(item)}
                   className='add_to_cart_button'
                 >
                   Add to Cart
                 </button>
-
               </div>
-            ))
-          ) : (
-            <p>Loading Data...</p>
-          )}
-        </div>
+            </div>
+          ))
+        ) : (
+          <p>Loading Data...</p>
+        )}
       </div>
-    </>
+    </div>
   );
 };

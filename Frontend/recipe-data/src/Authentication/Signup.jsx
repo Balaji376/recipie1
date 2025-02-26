@@ -11,7 +11,7 @@ export const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:9000/auth/register', {
+      const response = await axios.post('https://recepie-server.onrender.com/auth/register', {
         Username,
         email,
         password,

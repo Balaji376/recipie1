@@ -31,7 +31,7 @@ export const Navbar = () => {
           {loged && (
             <>
               <Link to="/add-to-cart/:id">Cart</Link>
-              <Link to="/recipe-details/:id">Recipe Details</Link>
+           
             </>
           )}
 

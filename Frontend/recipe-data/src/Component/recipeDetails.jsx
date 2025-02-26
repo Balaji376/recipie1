@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import '../style/RecipeView.css';
 
 export const RecipeView = () => {
-  const { id } = useParams();
+  const { id } = useParams("6b65aa0940284e7d8ef9f583fff2225c");
   const location = useLocation();
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
@@ -11,7 +11,7 @@ export const RecipeView = () => {
     if (!recipe) {
       async function fetchRecipe() {
         try {
-          let res = await fetch(`https://dummyjson.com/recipes/${id}`);
+          let res = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=6b65aa0940284e7d8ef9f583fff2225c`);
           let data = await res.json();
           setRecipe(data);
         } catch (error) {
